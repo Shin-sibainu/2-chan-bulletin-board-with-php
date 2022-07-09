@@ -1,0 +1,46 @@
+body {
+  background-color: #dcc0a6;
+}
+
+.title {
+  text-align: center;
+  font-size: 34px;
+}
+
+.boardWrapper {
+  /* background-color: #b3eeb3; */
+  background-color: #f3eded;
+  padding: 10px;
+  max-width: 1800px;
+  margin: 0 auto;
+  border: 1px solid black;
+}
+
+.childWrapper {
+  border: 1px solid black;
+  padding: 10px;
+}
+
+.threadTitle {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  margin-left: 6px;
+}
+
+.threadTitle h1 {
+  color: red;
+  margin-left: 3px;
+}
+
+section {
+  padding: 0px 10px;
+}
+
+.success_message {
+  color: #b3eeb3;
+}
+
+.errorComment {
+  color: red;
+}
