@@ -107,39 +107,74 @@ if ($file_handle = fopen(FILENAME, "r")) {
         <div class="childWrapper">
             <div class="threadTitle">
                 <span>【タイトル】</span>
-                <h1>今、○○だけど質問ある？</h1>
+                <h1>２チャンネル作ってみたｗｗｗ</h1>
             </div>
-            <hr>
             <section>
                 <?php if (!empty($message_array)) : ?>
                     <?php foreach ($message_array as $value) : ?>
                         <article>
-                            <div class="info">
-                                <h2><?php echo $value['username'] ?></h2>
-                                <p><?php echo $value['comment']; ?></p>
-                                <time><?php echo date('Y年m月d日 H:i', strtotime($value['post_date'])); ?></time>
+                            <div class="wrapper">
+                                <div class="nameArea">
+                                    <span>名前：</span>
+                                    <p class="username"><?php echo $value['username'] ?></p>
+                                    <time>：<?php echo date('Y/m/d H:i', strtotime($value['post_date'])); ?></time>
+                                </div>
+                                <p class="comment"><?php echo $value['comment']; ?></p>
                             </div>
                         </article>
                     <?php endforeach; ?>
                 <?php endif; ?>
             </section>
-            <form method="POST" action="">
+            <form method="POST" action="" class="formWrapper">
                 <div>
-                    <label for="username">お名前</label>
+                    <input type="submit" value="書き込む" name="submitButton">
+                    <label for="usernameLabel">名前：</label>
                     <input type="text" name="username">
                 </div>
                 <div>
-                    <label for="comment">コメントを書き込む</label>
-                    <textarea name="comment"></textarea>
+                    <textarea name="comment" class="commentTextArea"></textarea>
                 </div>
-                <input type="submit" value="投稿" name="submitButton">
+            </form>
+        </div>
+    </div>
+    <div class="boardWrapper">
+        <div class="childWrapper">
+            <div class="threadTitle">
+                <span>【タイトル】</span>
+                <h1>PHPとMySQLで作っています</h1>
+            </div>
+            <section>
+                <?php if (!empty($message_array)) : ?>
+                    <?php foreach ($message_array as $value) : ?>
+                        <article>
+                            <div class="wrapper">
+                                <div class="nameArea">
+                                    <span>名前：</span>
+                                    <p class="username"><?php echo $value['username'] ?></p>
+                                    <time>：<?php echo date('Y/m/d H:i', strtotime($value['post_date'])); ?></time>
+                                </div>
+                                <p class="comment"><?php echo $value['comment']; ?></p>
+                            </div>
+                        </article>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </section>
+            <form method="POST" action="" class="formWrapper">
+                <div>
+                    <input type="submit" value="書き込む" name="submitButton">
+                    <label for="usernameLabel">名前：</label>
+                    <input type="text" name="username">
+                </div>
+                <div>
+                    <textarea name="comment" class="commentTextArea"></textarea>
+                </div>
             </form>
         </div>
     </div>
 
     <div class="newThreadWrapper">
         <div class="newChildThreadWrapper">
-
+            <input type="submit" value="新規スレッド書き込み">
         </div>
     </div>
 </body>
