@@ -14,6 +14,7 @@ $message = array();
 $message_array = array();
 $success_message = null;
 $error_message = array();
+$clean = array();
 
 //送信して受け取ったデータは$_POSTの中に自動的に入る。
 //投稿データがあるときだけログを表示する。
@@ -22,11 +23,15 @@ if (!empty($_POST["submitButton"])) {
     //表示名の入力チェック
     if (empty($_POST["username"])) {
         $error_message[] = "お名前を入力してください。";
+    } else {
+        $clean['username'] = htmlspecialchars($_POST["username"], ENT_QUOTES, "UTF-8");
     }
 
     //コメントの入力チェック
     if (empty($_POST["comment"])) {
         $error_message[] = "コメントを入力してください。";
+    } else {
+        $clean['comment'] = htmlspecialchars($_POST["comment"], ENT_QUOTES, "UTF-8");
     }
 
     //エラーメッセージが何もないときだけデータ保存できる
@@ -36,7 +41,8 @@ if (!empty($_POST["submitButton"])) {
             $current_date = date("Y-m-d H:i:s");
 
             //書き込むデータを作成
-            $data = "'" . $_POST["username"] . "','" . $_POST["comment"] . "','" . $current_date . "'\n";
+            // $data = "'" . $_POST["username"] . "','" . $_POST["comment"] . "','" . $current_date . "'\n";
+            $data = "'" . $clean["username"] . "','" . $clean["comment"] . "','" . $current_date . "'\n";
 
             //書き込み
             fwrite($file_handle, $data);
