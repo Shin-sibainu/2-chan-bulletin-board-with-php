@@ -1,18 +1,20 @@
 <?php
 
-define("DBHOST", "localhost");
-define("DBUSER", "root");
-define("DBPASS", "root");
-define("DBNAME", "test-board");
+//メッセージを保存するファイルのパス設定
+define('FILENAME', "./message.txt");
 
 date_default_timezone_set("Asia/Tokyo");
 
 //変数の初期化
 $current_date = null;
+$data = null;
+$file_handle = null;
+$split_data = null;
 $message = array();
 $message_array = array();
 $success_message = null;
 $error_message = array();
+$clean = array();
 $pdo = null;
 $stmt = null;
 $res = null;
@@ -27,7 +29,7 @@ try {
     //     PDO::MYSQL_ATTR_MULTI_STATEMENTS => false
     // );
 
-    $pdo = new PDO('mysql:charset=UTF8;dbname=' . DBNAME . ';host=' . DBHOST, DBUSER, DBPASS);
+    $pdo = new PDO("mysql:charset=UTF8;dbname=test-board;host=localhost", "root", "root");
 } catch (PDOException $e) {
     //接続エラーのときエラー内容を取得する
     $error_message[] = $e->getMessage();
@@ -54,6 +56,21 @@ if (!empty($_POST["submitButton"])) {
     //エラーメッセージが何もないときだけデータ保存できる
     if (empty($error_message)) {
         // var_dump($_POST);
+        // データベース導入のときはコメントアウト
+        // if ($file_handle = fopen(FILENAME, "a")) {
+        //     $current_date = date("Y-m-d H:i:s");
+
+        //     //書き込むデータを作成
+        //     // $data = "'" . $_POST["username"] . "','" . $_POST["comment"] . "','" . $current_date . "'\n";
+        //     $data = "'" . $clean["username"] . "','" . $clean["comment"] . "','" . $current_date . "'\n";
+
+        //     //書き込み
+        //     fwrite($file_handle, $data);
+
+        //     fclose($file_handle);
+
+        //     $success_message = 'コメントを書き込みました';
+        // }
 
         //ここからDB追加のときに追加
         $current_date = date("Y-m-d H:i:s");
@@ -99,6 +116,26 @@ if (empty($error_message)) {
 
 //DB接続を閉じる
 $pdo = null;
+
+//ファイルの中身を見に行く
+//DBから取得するときはコメントアウトする
+// if ($file_handle = fopen(FILENAME, "r")) {
+//     while ($data = fgets($file_handle)) {
+
+//         $split_data = preg_split('/\'/', $data);
+
+//         $message = array(
+//             "username" => $split_data[1],
+//             "comment" => $split_data[3],
+//             "post_date" => $split_data[5]
+//         );
+//         array_unshift($message_array, $message);
+
+//         // echo $data . "<br>";
+//     }
+
+//     fclose($file_handle);
+// }
 ?>
 
 <!DOCTYPE html>
