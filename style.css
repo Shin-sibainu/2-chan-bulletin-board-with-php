@@ -94,3 +94,7 @@ section .comment {
 .newChildThreadWrapper input {
   width: 150px;
 }
+
+/* 管理者専用ページ */
+.downloadButton {
+}

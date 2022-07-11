@@ -13,10 +13,14 @@ $message = array();
 $message_array = array();
 $success_message = null;
 $error_message = array();
+$clean = array();
 $pdo = null;
 $stmt = null;
 $res = null;
 $option = null;
+
+//セッションをはじめるとき
+session_start();
 
 //データベース接続
 try {
@@ -42,6 +46,7 @@ if (!empty($_POST["submitButton"])) {
         $error_message[] = "お名前を入力してください。";
     } else {
         $clean['username'] = htmlspecialchars($_POST["username"], ENT_QUOTES, "UTF-8");
+        // $_SESSION['username'] = $_POST["username"];
     }
 
     //コメントの入力チェック
@@ -156,41 +161,9 @@ $pdo = null;
                 <div>
                     <input type="submit" value="書き込む" name="submitButton">
                     <label for="usernameLabel">名前：</label>
-                    <input type="text" name="username">
-                </div>
-                <div>
-                    <textarea name="comment" class="commentTextArea"></textarea>
-                </div>
-            </form>
-        </div>
-    </div>
-    <div class="boardWrapper">
-        <div class="childWrapper">
-            <div class="threadTitle">
-                <span>【タイトル】</span>
-                <h1>PHPとMySQLで作っています</h1>
-            </div>
-            <section>
-                <?php if (!empty($message_array)) : ?>
-                    <?php foreach ($message_array as $value) : ?>
-                        <article>
-                            <div class="wrapper">
-                                <div class="nameArea">
-                                    <span>名前：</span>
-                                    <p class="username"><?php echo $value['username'] ?></p>
-                                    <time>：<?php echo date('Y/m/d H:i', strtotime($value['post_date'])); ?></time>
-                                </div>
-                                <p class="comment"><?php echo $value['comment']; ?></p>
-                            </div>
-                        </article>
-                    <?php endforeach; ?>
-                <?php endif; ?>
-            </section>
-            <form method="POST" action="" class="formWrapper">
-                <div>
-                    <input type="submit" value="書き込む" name="submitButton">
-                    <label for="usernameLabel">名前：</label>
-                    <input type="text" name="username">
+                    <input type="text" name="username" value="<?php if (!empty($_SESSION['username'])) {
+                                                                    echo htmlspecialchars($_SESSION['username'], ENT_QUOTES, 'UTF-8');
+                                                                }    ?>">
                 </div>
                 <div>
                     <textarea name="comment" class="commentTextArea"></textarea>
